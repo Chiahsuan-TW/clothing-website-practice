@@ -1,12 +1,8 @@
-import './categories.styles.scss';
 import categories from './data/categories.json';
-import CategoryItem from './components/category-item/category-item.component';
+import Menu from './components/menu/menu.component';
 
 const App = () => {
-
-  return  <div className="categories-container">
-      {categories.map((category) => (<CategoryItem key={category.id} category={category} />))}
-    </div>
+return (<Menu categories={categories}/>)
 }
 
 export default App;
