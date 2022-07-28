@@ -1,8 +1,11 @@
-import categories from './data/categories.json';
-import Menu from './components/menu/menu.component';
+import Home from '../src/routes/home/home.component';
+import {Routes, Route} from 'react-router-dom';
 
 const App = () => {
-return (<Menu categories={categories}/>)
+  return (
+  <Routes>
+    <Route path='/' element={<Home/>} />
+  </Routes>)
 }
 
 export default App;
