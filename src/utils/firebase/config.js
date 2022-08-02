@@ -1,7 +1,7 @@
 
 
 import { initializeApp } from "firebase/app";
-import {getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
 
 // web app's Firebase configuration
@@ -31,7 +31,9 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 
 // firebaseApp is optional, it works just fine even if the firebaseApp is not passed into the function
 export const db = getFirestore(firebaseApp);
-export const createUserDocumentFromAuth = async (userAuth) => {
+
+// write user data in firestore database
+export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
   const userDocRef = doc(db, 'user', userAuth.uid)
 
   const userSnapshot = await getDoc(userDocRef)
@@ -41,7 +43,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     const createdAt = new Date();
     try {
         await setDoc(userDocRef, {
-        displayName, email, createdAt
+        displayName, email, createdAt, ...additionalInfo
       });
     } catch(error) {
       console.error(error.message)
@@ -49,4 +51,12 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
 
   return userDocRef
+}
+
+
+// firebase doc: https://firebase.google.com/docs/auth/web/password-auth
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if(!email || !password ) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 }
