@@ -1,9 +1,10 @@
-import {useState} from 'react';
+import {useState, } from 'react';
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/config';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component'
 import './sign-up-form.styles.scss';
+
 
 const SignUpForm = () => {
 
@@ -15,7 +16,7 @@ const SignUpForm = () => {
   }
   const [fieldValue, setFieldValue] = useState(formFields)
   const {displayName, email, password, confirmPassword} = fieldValue;
-  // console.log('re-render', fieldValue)
+
 
   const resetFormFields = () => {
     setFieldValue(formFields)
@@ -24,10 +25,8 @@ const SignUpForm = () => {
   const handleChange = (event) => {
     const {name, value} = event.target
 
-    // console.log('before setState object', fieldValue )
     // setFieldValue({...fieldValue, [name]: value})
     setFieldValue((prev) => ({...prev, [name]:value}))
-    // console.log('after setState object', fieldValue )
   }
 
   const handleSubmit = async (event) => {

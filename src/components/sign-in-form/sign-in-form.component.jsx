@@ -29,8 +29,8 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      const {user} = await signInUserWithEmailAndPassword(email, password);
-      console.log('SIGN IN', user);
+      await signInUserWithEmailAndPassword(email, password);
+
       alert('succesfully signed in')
       resetFieldValue();
     } catch(error) {
@@ -47,7 +47,7 @@ const SignInForm = () => {
     }
   }
 
-  const logGoogleUser = async () => {
+  const signInWithGoogle = async () => {
     const {user} = await signInWithGooglePopup();
     await createUserDocumentFromAuth(user);
   }
@@ -62,7 +62,7 @@ const SignInForm = () => {
         <FormInput label="Password" type="password" required name="password" value={password} onChange={handleChange}/>
         <div className="button-group">
           <Button label="sign in" type="submit"/>
-          <Button label="sign in with google" type="button" variant="google" onClick={logGoogleUser}/>
+          <Button label="sign in with google" type="button" variant="google" onClick={signInWithGoogle}/>
         </div>
       </form>
     </div>
