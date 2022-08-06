@@ -1,0 +1,8 @@
+.product-card-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 35px;
+  max-width: fit-content;
+  margin: 0 auto;
+}
