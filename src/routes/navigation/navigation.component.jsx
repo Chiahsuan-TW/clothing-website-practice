@@ -1,9 +1,11 @@
 import { Outlet, Link } from "react-router-dom"
 import { Fragment, useContext } from "react"
-import {ReactComponent as Crown} from '../../assets/crown.svg';
+import { ReactComponent as Crown} from '../../assets/crown.svg';
 import './navigation.styles.scss';
-import {UserContext} from '../../contexts/user-context'
+import { UserContext } from '../../contexts/user-context'
 import { signOutUser } from "../../utils/firebase/config";
+
+import ShoppingCart from "../../components/shopping-cart/shopping-cart.component";
 
 const Navbar = () => {
   const {currentUser} = useContext(UserContext)
@@ -19,6 +21,7 @@ const Navbar = () => {
           {currentUser ? 
           <span className="nav-link" onClick={signOutUser}>Sign Out</span> : 
           <Link to='/auth' className="nav-link">Sign In</Link>}
+          <ShoppingCart/>
         </div>
       </div>
       <Outlet/>
