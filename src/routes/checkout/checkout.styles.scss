@@ -1,0 +1,22 @@
+.checkout-list-container {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.checkout-list {
+  border-collapse: collapse;
+
+  thead {
+    font-size: 2em;
+
+    th {
+      padding: 15px;
+    }
+  }
+}
+
+.checkout-total {
+  font-size: 2em;
+  text-align-last: right;
+  font-weight: 600;
+}
