@@ -2,7 +2,7 @@
 
 import { initializeApp } from "firebase/app";
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged} from 'firebase/auth';
-import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
+import {getFirestore, doc, getDoc, setDoc, collection, writeBatch, getDocs } from 'firebase/firestore';
 
 // web app's Firebase configuration
 const firebaseConfig = {
@@ -31,6 +31,40 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 
 // firebaseApp is optional, it works just fine even if the firebaseApp is not passed into the function
 export const db = getFirestore(firebaseApp);
+
+
+// Docs: https://firebase.google.com/docs/firestore/manage-data/add-data
+// helper function to upload bulk data at one time
+export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey)
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach(object => {
+    // point to the doc reference where we want to store the data
+    const docRef = doc(collectionRef, object.title.toLowerCase())
+    batch.set(docRef, object)
+  })
+
+  await batch.commit();
+}
+
+
+// Docs: https://firebase.google.com/docs/reference/js/firestore_
+// helper function to pull data from firebase store
+export const getCategoriesAndDocument = async () => {
+  // point to the collection and then get all docs under the designated collection
+  const categoriesDocRef = collection(db, 'categories')
+  const categoriesSnapshot = await getDocs(categoriesDocRef)
+
+  const categoryMap = categoriesSnapshot.docs.reduce((result, category)=> {
+    const {title, items} = category.data()
+    result[title.toLowerCase()] = items;        
+    return result;
+  },{})
+
+  return categoryMap
+}
+
 
 // write user data in firestore database
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
