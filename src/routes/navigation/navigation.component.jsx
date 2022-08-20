@@ -1,7 +1,7 @@
-import { Outlet, Link } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import { Fragment, useContext, } from "react"
 import { ReactComponent as Crown} from '../../assets/crown.svg';
-import './navigation.styles.scss';
+import {NavigationContainer, NavLinksContainer, NavLink } from './navigation.styles.jsx';
 import { UserContext } from '../../contexts/user-context'
 import { signOutUser } from "../../utils/firebase/config";
 
@@ -17,18 +17,18 @@ const Navbar = () => {
   
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className='logo-container' to='/'>
+      <NavigationContainer>
+        <NavLink className='logo-container' to='/'>
           <div><Crown/></div>
-        </Link>
-        <div className="nav-links-container">
-          <Link to='/shop' className="nav-link">Shop</Link>
+        </NavLink>
+        <NavLinksContainer>
+          <NavLink to='/shop' >Shop</NavLink>
           {currentUser ? 
-          <span className="nav-link" onClick={signOutUser}>Sign Out</span> : 
-          <Link to='/auth' className="nav-link">Sign In</Link>}
+          <NavLink as="span" onClick={signOutUser}>Sign Out</NavLink> : 
+          <NavLink to='/auth' >Sign In</NavLink>}
           <ShoppingCart  />
-        </div>
-        </div>
+        </NavLinksContainer>
+        </NavigationContainer>
       {isOpen && <CartDropdown />}
       <Outlet/>
     </Fragment>
