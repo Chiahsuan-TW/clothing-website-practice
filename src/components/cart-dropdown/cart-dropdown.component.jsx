@@ -1,5 +1,5 @@
 import Button from '../button/button.component'
-import './cart-dropdown.styles.scss';
+import {CartDropdownContainer, EmptyMessage, CartItemcontainer} from './cart-dropdown.styles.jsx';
 
 import CartItem from '../cart-item/cart-item.component'
 import { CartContext } from '../../contexts/cart-context';
@@ -17,14 +17,21 @@ const CartDropdown = () => {
   }
 
   return (
-    <div className="cart-dropdown-container">
-      <div className="cart-item-container">
-        {cartItems.map(item => {
-          return <CartItem key={item.id} cartItem={item}/>
-        })}
-      </div>
+    <CartDropdownContainer>
+      <CartItemcontainer>
+        {
+          cartItems.length 
+          ? 
+          (
+            cartItems.map(item => {
+            return <CartItem key={item.id} cartItem={item}/>
+          })) 
+          : 
+          <EmptyMessage>The cart is empty</EmptyMessage>
+        }
+      </CartItemcontainer>
     <Button type="button" onClick={goToCheckoutHandler} label="go to checkout"/>
-    </div>
+    </CartDropdownContainer>
   ) 
 }
 

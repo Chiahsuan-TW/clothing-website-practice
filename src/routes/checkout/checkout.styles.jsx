@@ -1,9 +1,12 @@
-.checkout-list-container {
+import styled from 'styled-components';
+
+export const CheckoutListContainer = styled.div`
+
   width: fit-content;
   margin: 0 auto;
-}
+`
 
-.checkout-list {
+export const CheckoutTable = styled.table`
   border-collapse: collapse;
 
   thead {
@@ -13,10 +16,10 @@
       padding: 15px;
     }
   }
-}
+`
 
-.checkout-total {
+export const CheckoutTotal = styled.p`
   font-size: 2em;
   text-align-last: right;
   font-weight: 600;
-}
+`

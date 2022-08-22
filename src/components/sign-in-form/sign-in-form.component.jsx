@@ -4,7 +4,7 @@ import {signInWithGooglePopup,createUserDocumentFromAuth, signInUserWithEmailAnd
 import FormInput from "../form-input/form-input.component"
 import Button from "../button/button.component"
 
-import './sign-in-form.styles.scss';
+import {SignInContainer, ButtonGroup} from './sign-in-form.styles';
 
 const formValues = {
   email: '',
@@ -54,18 +54,18 @@ const SignInForm = () => {
 
 
   return (
-    <div className="sign-in-container">
+    <SignInContainer>
       <form onSubmit={handleSubmit}>
         <h2>I already have an account</h2>
         <p>Sign in with your email and password</p>
         <FormInput label="Email" type="email" required name="email" value={email} onChange={handleChange}/>
         <FormInput label="Password" type="password" required name="password" value={password} onChange={handleChange}/>
-        <div className="button-group">
+        <ButtonGroup>
           <Button label="sign in" type="submit"/>
           <Button label="sign in with google" type="button" variant="google" onClick={signInWithGoogle}/>
-        </div>
+        </ButtonGroup>
       </form>
-    </div>
+    </SignInContainer>
   )
 }
 

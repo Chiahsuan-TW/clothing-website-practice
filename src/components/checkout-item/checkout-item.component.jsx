@@ -1,4 +1,4 @@
-import './checkout-item.styles.scss';
+import {ProductTable, ProductImg, DeleteButton} from './checkout-item.styles.jsx';
 
 const CheckoutItem = ({product, addItemToCart, removeItemFromCart, decreaseItemFromCart}) => {
   const {name, price, quantity, imageUrl} = product;
@@ -9,8 +9,8 @@ const CheckoutItem = ({product, addItemToCart, removeItemFromCart, decreaseItemF
   const removeHandler = () => removeItemFromCart(product)
 
   return (
-      <tr className='product-item-container'>
-        <td className='product-img'><img src={`${imageUrl}`} alt={name} /></td>
+      <ProductTable>
+        <ProductImg><img src={`${imageUrl}`} alt={name} /></ProductImg>
         <td><span className='product-name'>{name}</span></td>
         <td>
           <button onClick={decreaseHandler}>&lt;</button>
@@ -18,8 +18,8 @@ const CheckoutItem = ({product, addItemToCart, removeItemFromCart, decreaseItemF
           <button onClick={addHandler}>&gt;</button>
         </td>
         <td><span className='product-price'>{price}</span></td>
-        <td><button type="button" onClick={removeHandler}>X</button></td>
-      </tr>
+        <td><DeleteButton type="button" onClick={removeHandler}>X</DeleteButton></td>
+      </ProductTable>
   )
 }
 
